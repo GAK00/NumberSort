@@ -12,7 +12,7 @@ public class Controller
 	public Controller()
 	{
 		display = new PopupViewer();
-		df = new DecimalFormat("#");
+		df = new DecimalFormat("#.000");
 	}
 
 	public void start()
@@ -26,15 +26,20 @@ public class Controller
 				String rawdata = display.collectResponse("enter numbers to sort seperated by a coma with no spaces");
 				if (rawdata != null)
 				{
-					
-					
-					String sorted =CompileStringFromArray(CleanArray(SortArray(AssignValuesAndCatchInvalidCharecters(rawdata.split(",")))));
-									
-					if(sorted =="")
+
+					String sorted = CompileStringFromArray(SortArray(CleanArray(AssignValuesAndCatchInvalidCharecters(rawdata.split(",")))));
+
+					if (sorted == "")
 					{
 						sorted = "You did not enter anything valid";
 					}
 					display.displayMessage(sorted);
+					if (display.collectUserOption("would you like to collect statistics on this data set") == 0)
+					{
+					}
+					else
+					{
+					}
 				}
 			}
 
@@ -58,12 +63,16 @@ public class Controller
 			}
 		}
 	}
-/**
- * Takes an string array and sets all non doubles to NaN and all doubles to correct value
- * @param split String array to sort through
- * @return Returns double array
- */
-	private double[] AssignValuesAndCatchInvalidCharecters( String[] split)
+
+	/**
+	 * Takes an string array and sets all non doubles to NaN and all doubles to
+	 * correct value
+	 * 
+	 * @param split
+	 *            String array to sort through
+	 * @return Returns double array
+	 */
+	private double[] AssignValuesAndCatchInvalidCharecters(String[] split)
 	{
 		double[] numb = new double[split.length];
 		int length = split.length;
@@ -80,24 +89,27 @@ public class Controller
 		}
 		return numb;
 	}
-/**
- * Sorts a double array by value least to greatest
- * @param Messyarray the array to sort
- * @return a sorted array
- */
+
+	/**
+	 * Sorts a double array by value least to greatest
+	 * 
+	 * @param Messyarray
+	 *            the array to sort
+	 * @return a sorted array
+	 */
 	private double[] SortArray(double[] Messyarray)
 	{
-		double [] numb = Messyarray;
+		double[] numb = Messyarray;
 		int length = numb.length;
-		for (int pos = 0; pos < length - 1; pos++)
+		for (int pos = 0; pos < (length - 1); pos++)
 		{
-			if (Double.compare(numb[pos], Double.NaN) == 0 || Double.compare(numb[pos + 1], Double.NaN) == 0)
-			{
-			}
+
 			for (int pos2 = 0; pos2 < (length - 1); pos2++)
 			{
-				if (numb[pos2] > numb[pos2 + 1])
+				
+				else if (numb[pos2] > numb[pos2 + 1])
 				{
+
 					double tempStore = numb[pos2 + 1];
 					numb[pos2 + 1] = numb[pos2];
 					numb[pos2] = tempStore;
@@ -107,12 +119,15 @@ public class Controller
 		}
 		return numb;
 	}
-/**
- * Takes a double array and remove all NaN values
- * @param uncleaned The array to clean
- * @return A cleaned array
- */
-	private double[] CleanArray( double[] uncleaned)
+
+	/**
+	 * Takes a double array and remove all NaN values
+	 * 
+	 * @param uncleaned
+	 *            The array to clean
+	 * @return A cleaned array
+	 */
+	private double[] CleanArray(double[] uncleaned)
 	{
 		int cleanedLength = 0;
 		for (double value : uncleaned)
@@ -124,11 +139,11 @@ public class Controller
 				cleanedLength++;
 			}
 		}
-		
+
 		double[] CleanedAndSorted = new double[cleanedLength];
 
 		int arrayPos = 0;
-		for (double Loop:uncleaned)
+		for (double Loop : uncleaned)
 		{
 			if (Double.compare(Loop, Double.NaN) == 0)
 			{
@@ -142,17 +157,20 @@ public class Controller
 		}
 		return CleanedAndSorted;
 	}
-/**
- * takes a double array and turns it into a string
- * @param numb array to be turned into a string
- * @return the string
- */
+
+	/**
+	 * takes a double array and turns it into a string
+	 * 
+	 * @param numb
+	 *            array to be turned into a string
+	 * @return the string
+	 */
 	private String CompileStringFromArray(double[] numb)
 	{
 		String CompiledString = "";
-		for (double Value:numb)
+		for (double Value : numb)
 		{
-			if (Double.compare(Value, numb[0])==0)
+			if (Double.compare(Value, numb[0]) == 0)
 			{
 				CompiledString = new String(CompiledString + df.format(Value));
 			} else
@@ -162,5 +180,33 @@ public class Controller
 			}
 		}
 		return CompiledString;
+	}
+	/**
+	 * Finds the mean of a dataset
+	 * @param Dataset the dataset to find the mean of
+	 * @return the mean
+	 */
+	private double getMean(double[] Dataset){
+		double mean = 0;
+		double totalvalue=0;
+		for(double currentValue : Dataset){
+			totalvalue = currentValue+totalvalue;
+		}
+		mean = totalvalue/Dataset.length;
+		return mean;
+	}
+	private double getMedian(double[] Dataset){
+		double median = 0;
+		if(Dataset.length%2==0){
+			median = Dataset[Dataset.length/2];
+		}
+		else
+		{
+			double length = Dataset.length;
+			length = length/2;
+			Double[] MedianValues = 
+			median = getmean()
+		}
+		return median;
 	}
 }
