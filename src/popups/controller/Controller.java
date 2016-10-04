@@ -195,6 +195,11 @@ public class Controller
 		mean = totalvalue/Dataset.length;
 		return mean;
 	}
+	/**
+	 * Gets the median of a dataset
+	 * @param Dataset the dataset to find the median of
+	 * @return Median
+	 */
 	private double getMedian(double[] Dataset){
 		double median = 0;
 		if(Dataset.length%2==0){
@@ -204,9 +209,17 @@ public class Controller
 		{
 			double length = Dataset.length;
 			length = length/2;
-			Double[] MedianValues = 
-			median = getmean()
+			double[] MedianValues = new  double[2];
+			MedianValues[0] = Dataset[(int)(length+.5)];
+			MedianValues[1] = Dataset[(int)(length-.5)];
+			median = getMean(MedianValues);
 		}
 		return median;
+	}
+	private double getMode(double[] Dataset){
+		double mode = 0;
+		
+		return mode;
+		
 	}
 }
